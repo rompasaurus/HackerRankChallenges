@@ -20,7 +20,10 @@ public class Main {
         //anagram();
         //stringTokens();
         //syntaxChecker();
-        regexMatchIP();
+        //regexMatchIP();
+        //printSubString();
+        //substringComparisons();
+        //isPalindrome();
 
     }
 

@@ -3,6 +3,7 @@ import java.security.MessageDigest;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -223,6 +224,7 @@ public class JavaIntro {
         System.out.println("bValue = " + bValue);
         return aValue==bValue;
     }
+
     public static void stringTokens() {
         System.out.println("Type a sentance and I'll fuck it up");
         Scanner scan = new Scanner(System.in);
@@ -261,7 +263,75 @@ public class JavaIntro {
             String IP = in.next();
             System.out.println(IP.matches(pattern));
         }
-
+    }
+    public static void  printSubString() {
+        System.out.println("Give me a word and 2 number and I will output the substring ");
+        Scanner in = new Scanner(System.in);
+        String S = in.next();
+        int start = in.nextInt();
+        int end = in.nextInt();
+        System.out.println(S.substring(start,end));
+    }
+    // Return the respective lexicographically smallest and largest substrings as a single newline-separated string.
+    public static void substringComparisons() {
+       // ball < cat, dog < dorm, Happy < happy, Zoo < ball.
+        // THe string str1.compareTo(str2) returns negative if str1 occurs alphabetically before str2 and pos if opposite
+        System.out.println("Give me a phrase and substring val and I will return the largest and smalles ");
+        Scanner in = new Scanner(System.in);
+        String phrase = in.nextLine();
+        int ssVal = in.nextInt();
+        List<String> subs = new ArrayList<>();
+        String smallest = phrase.substring(0, ssVal);
+        String largest = phrase.substring(0, ssVal);
+        for (int i = 0; i <= phrase.length() - ssVal; i++) {
+            String str = phrase.substring(i, i + ssVal);
+            subs.add(str);
+            System.out.println("adding substring: "+ subs.get(i));
+            if (str.compareTo(smallest)<0) {
+                smallest = str;
+            }
+            if (str.compareTo(largest) > 0) {
+                largest = str;
+            }
+        }
+        System.out.println("Largest Subs: "+ largest);
+        System.out.println("Smallest Subs: "+ smallest);
     }
 
+    public static void isPalindrome() {
+        System.out.println("Enter a word and I'll see if it's a palindrome");
+        Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        String aReverse;
+        StringBuilder sb = new StringBuilder();
+        for (int i = A.length()-1; i >= 0; i--) {
+            sb.append(A.charAt(i));
+        }
+        aReverse = sb.toString();
+        System.out.println("Reverse of String is: " + aReverse + " Is Palindrome: " +A.equals(aReverse));
+    }
+    public static void regexII() {
+        //Remove all duplicate word of an case march
+        String regex = "\\b(\\w+)(?:\\W+\\1\\b)+";
+        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
+        Scanner in = new Scanner(System.in);
+        int numSentences = Integer.parseInt(in.nextLine());
+
+        while (numSentences-- > 0) {
+            String input = in.nextLine();
+
+            Matcher m = p.matcher(input);
+
+            // Check for subsequences of input that match the compiled pattern
+            while (m.find()) {
+                input = input.replaceAll(m.group(), m.group(1));
+            }
+
+            // Prints the modified sentence.
+            System.out.println(input);
+        }
+
+        in.close();
+    }
 }
